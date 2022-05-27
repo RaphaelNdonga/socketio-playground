@@ -1,11 +1,19 @@
 import logo from './logo.svg';
 import './App.css';
+import { io } from 'socket.io-client';
 
 function App() {
+  const socket = io("ws://localhost:8080")
+
+  socket.on("message", (message) => {
+    console.log("message received: ", message)
+  })
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <img src={logo} className="App-logo" alt="logo" onClick={() => {
+          socket.emit("message", "Message has been clicked!")
+        }} />
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
