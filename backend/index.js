@@ -9,10 +9,10 @@ const io = require("socket.io")(http, {
 })
 
 io.on("connection", (socket) => {
-    console.log("Connected to socket: ")
+    console.log("Connected to socket: ", socket.id)
     socket.on("message", (message) => {
         console.log("Message received: ", message)
-        io.emit('message', `${socket.id.substr(0, 2)} said ${message}`)
+        socket.emit('message', `${socket.id.substr(0, 2)} said ${message}`)
     })
 })
 
